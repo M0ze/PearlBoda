@@ -12,7 +12,22 @@ const PORT = process.env.PORT || 3000;
 // Middleware
 app.use(cors());
 app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname, 'public')));
+
+// Page routes (before static so index.html does not override /)
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'landing.html'));
+});
+app.get('/about', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'about.html'));
+});
+app.get('/order', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'order.html'));
+});
+app.get('/driver', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'driver.html'));
+});
+
+app.use(express.static(path.join(__dirname, 'public'), { index: false }));
 
 // Database setup
 const db = new sqlite3.Database('./db/rides.db', (err) => {
@@ -20,31 +35,21 @@ const db = new sqlite3.Database('./db/rides.db', (err) => {
     console.error('Error opening database', err);
   } else {
     console.log('Connected to SQLite database.');
-    // Drop and recreate table for fresh schema (MVP)
-    db.run(`DROP TABLE IF EXISTS rides`, (err) => {
-      if (err) {
-        console.error('Error dropping table:', err);
-      } else {
-        db.run(`CREATE TABLE rides (
-          id INTEGER PRIMARY KEY AUTOINCREMENT,
-          passenger_name TEXT NOT NULL,
-          phone TEXT NOT NULL,
-          pickup_city TEXT NOT NULL,
-          dropoff_city TEXT NOT NULL,
-          pickup_location TEXT,
-          dropoff_location TEXT,
-          ride_time TEXT NOT NULL,
-          driver_name TEXT,
-          status TEXT DEFAULT 'pending',
-          created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-        )`, (err) => {
-          if (err) {
-            console.error('Error creating table:', err);
-          } else {
-            console.log('Rides table created');
-          }
-        });
-      }
+    db.run(`CREATE TABLE IF NOT EXISTS rides (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      passenger_name TEXT NOT NULL,
+      phone TEXT NOT NULL,
+      pickup_city TEXT NOT NULL,
+      dropoff_city TEXT NOT NULL,
+      pickup_location TEXT,
+      dropoff_location TEXT,
+      ride_time TEXT NOT NULL,
+      driver_name TEXT,
+      status TEXT DEFAULT 'pending',
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    )`, (err) => {
+      if (err) console.error('Error creating table:', err);
+      else console.log('Rides table ready');
     });
   }
 });
@@ -201,23 +206,6 @@ io.on('connection', (socket) => {
   socket.on('disconnect', () => {
     console.log('Client disconnected');
   });
-});
-
-// Page routes
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'landing.html'));
-});
-
-app.get('/about', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'about.html'));
-});
-
-app.get('/order', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'order.html'));
-});
-
-app.get('/driver', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'driver.html'));
 });
 
 module.exports = app;

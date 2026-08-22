@@ -175,7 +175,7 @@
     let valid = true;
     let errorMsg = '';
 
-    if (input.required && !input.value.trim()) {
+    if (input.required && !String(input.value).trim()) {
       valid = false;
       errorMsg = 'This field is required';
     } else if (input.id === 'phone' && input.value) {
@@ -186,7 +186,7 @@
       errorMsg = 'Name must be at least 2 characters';
     }
 
-    group.classList.toggle('valid', valid && input.value.trim() !== '');
+    group.classList.toggle('valid', valid && String(input.value).trim() !== '');
     group.classList.toggle('invalid', !valid);
     const errEl = group.querySelector('.field-error');
     if (errEl) errEl.textContent = errorMsg;
