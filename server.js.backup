@@ -1,0 +1,74 @@
+const express = require('express');
+const cors = require('cors');
+const bodyParser = require('body-parser');
+const sqlite3 = require('sqlite3').verbose();
+const path = require('path');
+
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+// Middleware
+app.use(cors());
+app.use(bodyParser.json());
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Database setup
+const db = new sqlite3.Database('./db/rides.db', (err) => {
+  if (err) {
+    console.error('Error opening database', err);
+  } else {
+    console.log('Connected to SQLite database.');
+    db.run(`CREATE TABLE IF NOT EXISTS rides (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      passenger_name TEXT NOT NULL,
+      phone TEXT NOT NULL,
+      pickup_city TEXT NOT NULL,
+      dropoff_city TEXT NOT NULL,
+      pickup_location TEXT,
+      dropoff_location TEXT,
+      ride_time TEXT NOT NULL,
+      status TEXT DEFAULT 'pending',
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    )`);
+  }
+});
+
+// API Routes
+// Get available cities
+app.get('/api/cities', (req, res) => {
+  const cities = ['Hioma', 'Kampala', 'Fortportal'];
+  res.json(cities);
+});
+
+// Create a new ride order
+app.post('/api/rides', (req, res) => {
+  const { passenger_name, phone, pickup_city, dropoff_city, pickup_location, dropoff_location, ride_time } = req.body;
+  if (!passenger_name || !phone || !pickup_city || !dropoff_city || !ride_time) {
+    return res.status(400).json({ error: 'Missing required fields' });
+  }
+  const stmt = db.prepare(`INSERT INTO rides (passenger_name, phone, pickup_city, dropoff_city, pickup_location, dropoff_location, ride_time) VALUES (?, ?, ?, ?, ?, ?, ?)`);
+  stmt.run([passenger_name, phone, pickup_city, dropoff_city, pickup_location || null, dropoff_location || null, ride_time], function(err) {
+    if (err) {
+      return res.status(500).json({ error: err.message });
+    }
+    res.json({ id: this.lastID, message: 'Ride ordered successfully' });
+  });
+  stmt.finalize();
+});
+
+// Get all rides (for admin/demo)
+app.get('/api/rides', (req, res) => {
+  db.all(`SELECT * FROM rides ORDER BY created_at DESC`, [], (err, rows) => {
+    if (err) {
+      return res.status(500).json({ error: err.message });
+    }
+    res.json(rows);
+  });
+});
+
+// Start server
+app.listen(PORT, () => {
+  console.log(`Server running on http://localhost:${PORT}`);
+});
+
+module.exports = app;

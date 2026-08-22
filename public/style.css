@@ -1,0 +1,121 @@
+/* Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f4f4f4;
+}
+
+.container {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+header {
+    text-align: center;
+    padding: 2rem 0;
+    border-bottom: 1px solid #eee;
+}
+
+header h1 {
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+}
+
+header p {
+    color: #7f8c8d;
+}
+
+main {
+    padding: 2rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 5px rgba(52,152,219,0.5);
+}
+
+button.btn-primary {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: #27ae60;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+button.btn-primary:hover {
+    background-color: #219150;
+}
+
+.message {
+    margin-top: 1rem;
+    padding: 0.75rem;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.message.success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.message.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+footer {
+    text-align: center;
+    padding: 1.5rem 0;
+    color: #95a5a6;
+    font-size: 0.9rem;
+    border-top: 1px solid #eee;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .container {
+        margin: 1rem auto;
+        padding: 0 0.5rem;
+    }
+    main {
+        padding: 1.5rem;
+    }
+}

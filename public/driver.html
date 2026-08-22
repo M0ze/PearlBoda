@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PearlBoda Driver Dashboard</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>PearlBoda Driver</h1>
+            <p>Available rides</p>
+        </header>
+        <main>
+            <section id="pending-rides">
+                <h2>Pending Rides</h2>
+                <div id="rides-list">
+                    <!-- Pending rides will be listed here -->
+                </div>
+            </section>
+            <section id="accepted-ride" style="display: none;">
+                <h2>Accepted Ride</h2>
+                <div id="ride-details">
+                    <!-- Ride details will be shown here -->
+                </div>
+                <div>
+                    <button id="start-ride-btn">Start Ride</button>
+                    <button id="complete-ride-btn">Complete Ride</button>
+                </div>
+                <div id="location-update">
+                    <h3>Update Location</h3>
+                    <input type="text" id="location-input" placeholder="Current location">
+                    <button id="update-location-btn">Update Location</button>
+                </div>
+            </section>
+        </main>
+        <footer>
+            <p>&copy; 2026 PearlBoda. All rights reserved.</p>
+        </footer>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+    <script src="/driver.js"></script>
+</body>
+</html>
