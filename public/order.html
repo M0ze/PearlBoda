@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order a Ride — PearlBoda</title>
+    <meta name="description" content="Book a boda boda ride in Hioma, Kampala, or Fort Portal. Fast, safe, and affordable.">
+    <link rel="stylesheet" href="/css/design-system.css">
+    <link rel="stylesheet" href="/css/order.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
+    <script src="/socket.io/socket.io.js" defer></script>
+</head>
+<body>
+    <nav class="site-nav" aria-label="Main navigation">
+        <div class="nav-inner">
+            <a href="/" class="nav-logo" aria-label="PearlBoda home">Pearl<span>Boda</span></a>
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="/about">About</a></li>
+                <li><a href="/order">Order Ride</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button class="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+                <button class="nav-toggle" aria-label="Open menu" aria-expanded="false">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="order-page">
+        <div class="container">
+            <header class="order-header reveal">
+                <h1>Order Your Ride</h1>
+                <p>Book a trusted boda in Hioma, Kampala, or Fort Portal</p>
+            </header>
+
+            <div class="order-layout">
+                <div class="order-form-panel">
+                    <div class="progress-bar" role="progressbar" aria-valuenow="1" aria-valuemin="1" aria-valuemax="3" aria-label="Booking progress">
+                        <div class="progress-fill" id="progressFill"></div>
+                        <div class="progress-step active" data-step="1">
+                            <div class="step-circle">1</div>
+                            <span class="step-label">Your Info</span>
+                        </div>
+                        <div class="progress-step" data-step="2">
+                            <div class="step-circle">2</div>
+                            <span class="step-label">Locations</span>
+                        </div>
+                        <div class="progress-step" data-step="3">
+                            <div class="step-circle">3</div>
+                            <span class="step-label">Confirm</span>
+                        </div>
+                    </div>
+
+                    <form id="rideForm" novalidate>
+                        <div class="form-step active" data-step="1">
+                            <div class="form-group">
+                                <label for="passengerName">Your Name</label>
+                                <input type="text" id="passengerName" name="passengerName" required autocomplete="name" minlength="2">
+                                <span class="field-check" aria-hidden="true">✓</span>
+                                <span class="field-error" role="alert"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Phone Number</label>
+                                <input type="tel" id="phone" name="phone" required pattern="[0-9]{9,15}" placeholder="e.g., 256700123456" autocomplete="tel">
+                                <span class="field-check" aria-hidden="true">✓</span>
+                                <span class="field-error" role="alert"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-step" data-step="2">
+                            <div class="form-group">
+                                <label for="pickupCity">Pickup City</label>
+                                <select id="pickupCity" name="pickupCity" required>
+                                    <option value="">— Select City —</option>
+                                </select>
+                                <span class="field-check" aria-hidden="true">✓</span>
+                                <span class="field-error" role="alert"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="pickupLocation">Pickup Location (optional)</label>
+                                <input type="text" id="pickupLocation" name="pickupLocation" placeholder="Street, landmark, or area">
+                                <button type="button" class="geo-btn" id="geoBtn">📍 Use My Location</button>
+                            </div>
+                            <div class="form-group">
+                                <label for="dropoffCity">Dropoff City</label>
+                                <select id="dropoffCity" name="dropoffCity" required>
+                                    <option value="">— Select City —</option>
+                                </select>
+                                <span class="field-check" aria-hidden="true">✓</span>
+                                <span class="field-error" role="alert"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="dropoffLocation">Dropoff Location (optional)</label>
+                                <input type="text" id="dropoffLocation" name="dropoffLocation" placeholder="Street, landmark, or area">
+                            </div>
+                        </div>
+
+                        <div class="form-step" data-step="3">
+                            <div class="form-group">
+                                <label for="rideTime">Desired Ride Time</label>
+                                <input type="datetime-local" id="rideTime" name="rideTime" required>
+                                <span class="field-check" aria-hidden="true">✓</span>
+                                <span class="field-error" role="alert"></span>
+                            </div>
+                            <p style="color: var(--color-gray-500); font-size: 0.9rem; margin-top: 1rem;">
+                                Review your route on the map preview, then submit to find a nearby rider.
+                            </p>
+                        </div>
+
+                        <div class="form-nav">
+                            <button type="button" class="btn btn-outline" id="btnPrev" style="visibility: hidden;">Back</button>
+                            <button type="button" class="btn btn-primary" id="btnNext">Continue</button>
+                            <button type="submit" class="btn btn-primary" id="btnSubmit" style="display: none;">Order Ride</button>
+                        </div>
+                    </form>
+
+                    <div id="formMessage" class="message" role="status" aria-live="polite"></div>
+                </div>
+
+                <aside class="map-preview-panel">
+                    <canvas id="order-map-canvas" aria-label="Route map preview"></canvas>
+                    <div class="map-info">
+                        <h3>Your Route</h3>
+                        <div class="route-display">
+                            <div class="route-point">
+                                <span class="route-dot pickup" aria-hidden="true"></span>
+                                <span id="routePickup">Select pickup city</span>
+                            </div>
+                            <div class="route-point">
+                                <span class="route-dot dropoff" aria-hidden="true"></span>
+                                <span id="routeDropoff">Select dropoff city</span>
+                            </div>
+                        </div>
+                        <div id="rideStatus" class="ride-status-panel" role="status" aria-live="polite"></div>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </main>
+
+    <div class="modal-overlay" id="confirmModal" aria-hidden="true" role="dialog" aria-labelledby="modalTitle">
+        <div class="modal-content">
+            <canvas id="celebration-canvas" aria-hidden="true"></canvas>
+            <div class="modal-icon" aria-hidden="true">🏍️</div>
+            <h2 id="modalTitle">Ride Ordered!</h2>
+            <p>Your ride <strong id="confirmRideId">#0</strong> has been submitted. A nearby rider will accept shortly.</p>
+            <button type="button" class="btn btn-primary" id="modalClose">Got It</button>
+        </div>
+    </div>
+
+    <footer class="site-footer">
+        <div class="container footer-bottom">
+            <p>&copy; 2026 PearlBoda. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="/js/shared.js"></script>
+    <script src="/js/order.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const btnNext = document.getElementById('btnNext');
+            const btnPrev = document.getElementById('btnPrev');
+            const btnSubmit = document.getElementById('btnSubmit');
+
+            const observer = new MutationObserver(() => {
+                const activeStep = document.querySelector('.form-step.active');
+                if (!activeStep) return;
+                const step = parseInt(activeStep.dataset.step, 10);
+                btnPrev.style.visibility = step > 1 ? 'visible' : 'hidden';
+                btnNext.style.display = step < 3 ? 'inline-flex' : 'none';
+                btnSubmit.style.display = step === 3 ? 'inline-flex' : 'none';
+            });
+            observer.observe(document.getElementById('rideForm'), { subtree: true, attributes: true, attributeFilter: ['class'] });
+        });
+    </script>
+</body>
+</html>

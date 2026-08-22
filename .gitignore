@@ -16,6 +16,7 @@ pids
 # Database
 db/*.sqlite
 db/*.sqlite3
+db/*.db
 
 # Coverage directory used by tools like istanbul
 coverage/

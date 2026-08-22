@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About PearlBoda — Uganda's Trusted Boda Service</title>
+    <meta name="description" content="Learn about PearlBoda's mission to transform transportation across Uganda. Local impact, community focus, reliable rides.">
+    <meta property="og:title" content="About PearlBoda">
+    <meta property="og:description" content="Our story, mission, and vision for Uganda's transportation future.">
+    <link rel="stylesheet" href="/css/design-system.css">
+    <link rel="stylesheet" href="/css/about.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js" defer></script>
+</head>
+<body>
+    <div id="page-loader" class="skeleton-loader" aria-live="polite">
+        <div class="skeleton-spinner" role="status" aria-label="Loading"></div>
+        <p class="skeleton-text">Loading PearlBoda…</p>
+    </div>
+
+    <nav class="site-nav" aria-label="Main navigation">
+        <div class="nav-inner">
+            <a href="/" class="nav-logo" aria-label="PearlBoda home">Pearl<span>Boda</span></a>
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="/about">About</a></li>
+                <li><a href="/order">Order Ride</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button class="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+                <a href="/order" class="btn btn-primary">Start Your Ride</a>
+                <button class="nav-toggle" aria-label="Open menu" aria-expanded="false">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <section class="about-hero">
+        <canvas id="about-canvas" aria-hidden="true"></canvas>
+        <div class="container about-hero-content reveal">
+            <span class="section-label">Our Story</span>
+            <h1>Moving Uganda Forward, One Ride at a Time</h1>
+            <p>PearlBoda was born from a simple observation: millions of Ugandans rely on boda bodas every day, yet finding a safe, reliable ride remains a challenge. We set out to change that.</p>
+        </div>
+    </section>
+
+    <section class="about-section">
+        <div class="container mission-grid">
+            <div class="mission-text reveal">
+                <span class="section-label">Our Mission</span>
+                <h2 class="section-title">Empowering Local Transport</h2>
+                <p>We believe every Ugandan deserves access to safe, affordable, and reliable transportation. PearlBoda connects passengers with verified boda riders across Hioma, Kampala, and Fort Portal — creating opportunities for drivers while serving communities.</p>
+                <p>Our platform is built with local needs in mind: from transparent pricing in Ugandan shillings to support for areas where traditional ride-hailing doesn't reach.</p>
+            </div>
+            <div class="mission-visual reveal">
+                <p class="big-quote">"Transportation is not just about getting from A to B — it's about connecting people, enabling commerce, and building stronger communities."</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="about-section alt-bg">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-label">Impact</span>
+                <h2 class="section-title">Our Impact in Numbers</h2>
+            </div>
+            <div class="stats-grid">
+                <div class="stat-card reveal">
+                    <span class="stat-number" data-count="12500" data-suffix="+">0</span>
+                    <span class="stat-label">Rides Completed</span>
+                </div>
+                <div class="stat-card reveal">
+                    <span class="stat-number" data-count="3">0</span>
+                    <span class="stat-label">Cities Served</span>
+                </div>
+                <div class="stat-card reveal">
+                    <span class="stat-number" data-count="4800" data-suffix="+">0</span>
+                    <span class="stat-label">Happy Customers</span>
+                </div>
+                <div class="stat-card reveal">
+                    <span class="stat-number" data-count="320" data-suffix="+">0</span>
+                    <span class="stat-label">Trusted Riders</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="about-section">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-label">The Team</span>
+                <h2 class="section-title">Meet the People Behind PearlBoda</h2>
+            </div>
+            <div class="team-grid">
+                <div class="team-card reveal">
+                    <div class="team-avatar" aria-hidden="true">👤</div>
+                    <h3>Moses Mugagga</h3>
+                    <p class="role">Founder &amp; CEO</p>
+                    <p>Passionate about using technology to solve local transportation challenges across Uganda.</p>
+                </div>
+                <div class="team-card reveal">
+                    <div class="team-avatar" aria-hidden="true">👤</div>
+                    <h3>Operations Lead</h3>
+                    <p class="role">Head of Operations</p>
+                    <p>Ensuring every ride meets our safety and quality standards across all service cities.</p>
+                </div>
+                <div class="team-card reveal">
+                    <div class="team-avatar" aria-hidden="true">👤</div>
+                    <h3>Tech Lead</h3>
+                    <p class="role">Engineering</p>
+                    <p>Building the platform that powers seamless ride ordering and real-time tracking.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="about-section alt-bg">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-label">Features</span>
+                <h2 class="section-title">Built for Trust &amp; Transparency</h2>
+            </div>
+            <div class="features-list">
+                <div class="feature-item reveal">
+                    <div class="feature-icon" aria-hidden="true">📍</div>
+                    <div>
+                        <h3>Real-Time Tracking</h3>
+                        <p>Know exactly where your rider is with live location updates via Socket.IO. No more guessing — see your boda approach in real time.</p>
+                    </div>
+                </div>
+                <div class="feature-item reveal">
+                    <div class="feature-icon" aria-hidden="true">💵</div>
+                    <div>
+                        <h3>Transparent Pricing</h3>
+                        <p>See your estimated fare before you book. No surge pricing surprises, no hidden fees. What you see is what you pay.</p>
+                    </div>
+                </div>
+                <div class="feature-item reveal">
+                    <div class="feature-icon" aria-hidden="true">🔒</div>
+                    <div>
+                        <h3>Safety Protocols</h3>
+                        <p>Every rider is verified with ID checks and community references. Helmet policies enforced, and emergency contacts on every ride.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="about-section">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-label">FAQ</span>
+                <h2 class="section-title">Frequently Asked Questions</h2>
+            </div>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">Which cities does PearlBoda serve?</button>
+                    <div class="faq-answer"><p>We currently operate in Hioma, Kampala, and Fort Portal, with plans to expand to more Ugandan cities soon.</p></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">How do I pay for my ride?</button>
+                    <div class="faq-answer"><p>Payment is made directly to your rider upon arrival. We support cash and mobile money (MTN MoMo, Airtel Money).</p></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">Are the riders verified?</button>
+                    <div class="faq-answer"><p>Yes. All PearlBoda riders undergo ID verification, reference checks, and safety training before joining our platform.</p></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">Can I schedule a ride in advance?</button>
+                    <div class="faq-answer"><p>Absolutely. Use the datetime picker on our order page to schedule rides up to 7 days in advance.</p></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">How do I become a PearlBoda rider?</button>
+                    <div class="faq-answer"><p>Visit our driver dashboard or contact us at hello@pearlboda.ug with your details. We'll guide you through onboarding.</p></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact-cta">
+        <div class="container reveal">
+            <h2>Get in Touch</h2>
+            <p>Have questions or want to partner with us? We'd love to hear from you.</p>
+            <form id="contactForm" class="contact-form">
+                <input type="text" name="name" placeholder="Your Name" required aria-label="Your name">
+                <input type="email" name="email" placeholder="Your Email" required aria-label="Your email">
+                <textarea name="message" placeholder="Your Message" required aria-label="Your message"></textarea>
+                <button type="submit" class="btn btn-primary">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <h3>PearlBoda</h3>
+                    <p>Uganda's trusted boda boda ride-ordering platform.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/about">About</a></li>
+                        <li><a href="/order">Order Ride</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Follow Us</h4>
+                    <div class="social-icons">
+                        <a href="#" aria-label="Facebook">📘</a>
+                        <a href="#" aria-label="Twitter">🐦</a>
+                        <a href="#" aria-label="Instagram">📸</a>
+                        <a href="#" aria-label="WhatsApp">💬</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 PearlBoda. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/js/shared.js"></script>
+    <script src="/js/about.js"></script>
+</body>
+</html>

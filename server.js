@@ -161,7 +161,8 @@ app.get('/api/rides/:id', (req, res) => {
 });
 
 // Start server
-const server = http.listen(PORT, () => {
+const server = http.createServer(app);
+server.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
 
@@ -202,7 +203,19 @@ io.on('connection', (socket) => {
   });
 });
 
-// Serve driver dashboard
+// Page routes
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'landing.html'));
+});
+
+app.get('/about', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'about.html'));
+});
+
+app.get('/order', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'order.html'));
+});
+
 app.get('/driver', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'driver.html'));
 });
