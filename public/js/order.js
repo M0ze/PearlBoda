@@ -246,19 +246,21 @@
     const dropoffSelect = document.getElementById('dropoffCity');
     if (!pickupSelect || !dropoffSelect) return;
 
+    const populate = (cities) => {
+      cities.forEach(city => {
+        [pickupSelect, dropoffSelect].forEach(select => {
+          const opt = document.createElement('option');
+          opt.value = city;
+          opt.textContent = city;
+          select.appendChild(opt);
+        });
+      });
+    };
+
     fetch('/api/cities')
       .then(r => r.json())
-      .then(cities => {
-        cities.forEach(city => {
-          [pickupSelect, dropoffSelect].forEach(select => {
-            const opt = document.createElement('option');
-            opt.value = city;
-            opt.textContent = city;
-            select.appendChild(opt);
-          });
-        });
-      })
-      .catch(() => showMessage('Could not load cities.', 'error'));
+      .then(populate)
+      .catch(() => populate(['Hioma', 'Kampala', 'Fortportal']));
   }
 
   function initSocket() {

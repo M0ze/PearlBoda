@@ -24,10 +24,10 @@
       });
     }
 
-    const path = window.location.pathname;
+    const page = window.location.pathname.split('/').pop() || 'index.html';
     document.querySelectorAll('.nav-links a').forEach(link => {
       const href = link.getAttribute('href');
-      if (href === path || (path === '/' && href === '/')) {
+      if (href === page || (page === '' && href === 'index.html')) {
         link.classList.add('active');
         link.setAttribute('aria-current', 'page');
       }
