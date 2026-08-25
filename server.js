@@ -26,6 +26,9 @@ app.get('/order', (req, res) => {
 app.get('/driver', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'driver.html'));
 });
+app.get('/dashboard', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'dashboard.html'));
+});
 
 app.use(express.static(path.join(__dirname, 'public'), { index: false }));
 

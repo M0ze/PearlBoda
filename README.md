@@ -8,12 +8,14 @@ A simple web application for ordering boda boda rides in Hioma, Kampala, and For
 - Submit ride order with passenger name, phone, pickup/drop-off locations, and desired time
 - Stores ride requests in a SQLite database
 - Responsive mobile-friendly UI
+- **Real-time Dashboard**: View nearby riders and manage orders via a dedicated dashboard.
+- **Enhanced UI**: Improved theme with better readability and dark mode support.
 
 ## Tech Stack
 
 - **Backend**: Node.js, Express, SQLite3
 - **Frontend**: HTML5, CSS3, Vanilla JavaScript
-- **Dev**: Nodemon (for development)
+- **Dev**: Nodemon (for development), MM (Developer)
 
 ## Setup
 
