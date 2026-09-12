@@ -1,91 +1,23 @@
-/* PearlBoda Design System */
-/* Optimized for readability, performance, and accessibility */
-
-@import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@8..72,100..900&display=swap');
-
 :root {
-  /* Font stack and tokens */
-  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  --font-base-size: 16px;
-  --scale-ratio: 1.125;
-
-  /* Color tokens (light) */
-  --color-bg: #f8f9fa;
-  --color-surface: #ffffff;
-  --color-text: #1a202c;
-  --color-muted: #4a5568;
-  --color-accent: #3182ce;
-  --color-primary: #dd6b20;
-  --color-secondary: #2f855a;
-
-  /* Spacing */
-  --space-1: 4px;
-  --space-2: 8px;
-  --space-3: 16px;
-  --space-4: 24px;
-  --space-5: 32px;
-  --container-max: 1200px;
+  --color-primary: #7c3aed;
+  --color-secondary: #06b6d4;
+  --color-accent: #ec4899;
+  --color-indigo: #4c1d95;
+  --color-black: #000;
+  --color-near-white: #f8f8f8;
+  --color-warm-gray: #6b7280;
+  --glow-primary: 0 0 20px rgba(124, 58, 237, .4);
+  --glow-accent: 0 0 15px rgba(236, 72, 153, .3);
+  --ease-out: cubic-bezier(.22, 1, .36, 1);
+  --duration-fast: 200ms;
+  --space-unit: 4px;
 }
 
-/* Dark theme overrides */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-bg: #0f172a;
-    --color-surface: #1e293b;
-    --color-text: #f1f5f9;
-    --color-muted: #94a3b8;
-    --color-accent: #63b3ed;
-  }
+@keyframes slide-in { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes glow-pulse { 50% { box-shadow: 0 0 30px rgba(124, 58, 237, .7); } }
+@keyframes scale-pop { 0% { transform: scale(.96); } 70% { transform: scale(1.03); } 100% { transform: scale(1); } }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
 }
-
-/* Global typographic base */
-html {
-  font-family: var(--font-sans);
-  font-size: var(--font-base-size);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: var(--color-text);
-  background: var(--color-bg);
-  box-sizing: border-box;
-}
-
-*, *::before, *::after {
-  box-sizing: inherit;
-}
-
-/* Heading scale */
-h1 { font-size: 2.5rem; line-height: 1.08; font-weight: 700; margin: 0 0 var(--space-3) 0; }
-h2 { font-size: 2rem; line-height: 1.12; font-weight: 600; margin: 0 0 var(--space-3) 0; }
-h3 { font-size: 1.5rem; line-height: 1.2; font-weight: 600; margin: 0 0 var(--space-2) 0; }
-p, .body-text { font-size: 1rem; line-height: 1.6; font-weight: 400; color: var(--color-text); }
-
-/* Section container */
-.page-section {
-  max-width: var(--container-max);
-  margin: 0 auto;
-  padding: calc(var(--space-4)) var(--space-3);
-  border-top: 1px solid rgba(15,23,36,0.04); /* subtle divider */
-  background: transparent;
-}
-
-/* Thumbnail */
-.thumbnail-wrapper {
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  overflow: hidden;
-  background: linear-gradient(90deg, rgba(0,0,0,0.02), rgba(0,0,0,0.03));
-  border-radius: 6px;
-  position: relative;
-  will-change: transform;
-}
-
-.thumbnail-wrapper img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  transform-origin: center;
-}
-
-/* Performance: reduce paint for offscreen sections */
-.offscreen { content-visibility: auto; contain-intrinsic-size: 400px; }
