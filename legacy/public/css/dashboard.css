@@ -1,0 +1,57 @@
+/* Dashboard layout styles */
+.dashboard-page {
+  padding-top: 5rem; /* Adjusted for nav height */
+  padding-left: var(--space-3);
+  padding-right: var(--space-3);
+  min-height: 100vh;
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1fr 350px;
+  gap: var(--space-4);
+  max-width: var(--container-max);
+  margin: 0 auto;
+}
+
+.riders-map-panel {
+  background: var(--color-surface);
+  border-radius: 8px;
+  padding: var(--space-3);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.map-placeholder {
+  height: 500px;
+  background: #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  color: #718096;
+}
+
+.orders-sidebar {
+  background: var(--color-surface);
+  border-radius: 8px;
+  padding: var(--space-3);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.order-actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
+}
+
+.active-orders {
+  border-top: 1px solid #e2e8f0;
+  padding-top: var(--space-2);
+}
+
+@media (max-width: 900px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+}
